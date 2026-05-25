@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DOOM — Databricks Edition</title>
+
+  <!-- DOSBox engine + API — self-hosted, no external CDN required -->
+  <script src="/static/js-dos-api.js"></script>
+
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --red:    #cc0000;
+      --red-hi: #ff2222;
+      --red-lo: #660000;
+      --bg:     #0d0d0d;
+      --panel:  #141414;
+      --border: #1e0000;
+      --muted:  #444;
+      --text:   #888;
+    }
+
+    body {
+      background: var(--bg);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      font-family: 'Courier New', Courier, monospace;
+    }
+
+    /* ── Title ── */
+    .title-block { text-align: center; user-select: none; }
+
+    h1 {
+      font-size: clamp(2.5rem, 8vw, 5rem);
+      letter-spacing: 0.3em;
+      color: var(--red);
+      text-shadow: 0 0 10px var(--red), 0 0 30px var(--red), 0 0 60px var(--red-lo);
+      line-height: 1;
+    }
+
+    .subtitle {
+      font-size: 0.7rem;
+      letter-spacing: 0.25em;
+      color: var(--muted);
+      margin-top: 6px;
+      text-transform: uppercase;
+    }
+
+    /* ── Game container — js-dos injects its own canvas inside this div ── */
+    #doom-container {
+      border: 2px solid var(--red-lo);
+      box-shadow: 0 0 0 1px var(--border), 0 0 40px #cc000033, inset 0 0 20px #00000088;
+      line-height: 0; /* collapse whitespace around the injected canvas */
+    }
+
+    /* js-dos wraps output in .dosbox-container; size it to classic Doom resolution */
+    #doom-container .dosbox-container {
+      width:  640px !important;
+      height: 400px !important;
+    }
+
+    /* ── Controls bar ── */
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 8px 20px;
+      font-size: 0.7rem;
+      color: var(--muted);
+      letter-spacing: 0.05em;
+      max-width: 640px;
+    }
+
+    .controls .entry { display: flex; align-items: center; gap: 5px; }
+
+    kbd {
+      background: var(--panel);
+      border: 1px solid #2a2a2a;
+      border-bottom-width: 2px;
+      border-radius: 3px;
+      padding: 1px 6px;
+      font-family: inherit;
+      font-size: 0.7rem;
+      color: var(--text);
+    }
+
+    /* ── Footer ── */
+    footer {
+      font-size: 0.6rem;
+      color: #2a2a2a;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    footer a { color: #3a0000; text-decoration: none; }
+    footer a:hover { color: var(--red-lo); }
+  </style>
+</head>
+
+<body>
+
+  <div class="title-block">
+    <h1>DOOM</h1>
+    <p class="subtitle">Databricks Edition &mdash; Rip &amp; Tear</p>
+  </div>
+
+  <!-- js-dos renders the DOSBox canvas inside this div -->
+  <div id="doom-container"></div>
+
+  <div class="controls">
+    <span class="entry"><kbd>W A S D</kbd> / <kbd>&#x2191;&#x2193;&#x2190;&#x2192;</kbd> Move</span>
+    <span class="entry"><kbd>Ctrl</kbd> Fire</span>
+    <span class="entry"><kbd>Space</kbd> Open / Use</span>
+    <span class="entry"><kbd>Shift</kbd> Run</span>
+    <span class="entry"><kbd>Alt</kbd> Strafe</span>
+    <span class="entry"><kbd>1&ndash;7</kbd> Weapons</span>
+    <span class="entry"><kbd>Tab</kbd> Map</span>
+    <span class="entry"><kbd>Esc</kbd> Menu</span>
+  </div>
+
+  <footer>
+    Powered by <a href="https://js-dos.com" target="_blank" rel="noopener">js-dos</a>
+    &nbsp;&middot;&nbsp;
+    DOOM &copy; 1993 id Software &nbsp;&middot;&nbsp; Shareware episode
+  </footer>
+
+  <script>
+    // Game zip is fetched by the browser directly from CDN (CORS: *)
+    // The DOSBox engine (js-dos-v3.js + js-dos-api.js) is self-hosted.
+    var dosbox = new Dosbox({
+      id: "doom-container",
+      onload: function (dosbox) {
+        dosbox.run(
+          "https://thedoggybrad.github.io/doom_on_js-dos/DOOM-@evilution.zip",
+          "./DOOM/DOOM.EXE"
+        );
+      },
+      onrun: function (dosbox, app) {
+        console.log("DOOM is running:", app);
+      }
+    });
+  </script>
+
+</body>
+</html>

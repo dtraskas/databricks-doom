@@ -1,0 +1,3 @@
+version: 1
+name: "DOOM"
+description: "The classic 1993 id Software first-person shooter running inside a Databricks App via js-dos."
