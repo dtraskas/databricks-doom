@@ -1,7 +1,5 @@
 # DOOM — Databricks Edition
 
-> Rip & Tear, now running on Databricks Apps.
-
 The classic 1993 id Software first-person shooter running inside a [Databricks App](https://docs.databricks.com/en/dev-tools/databricks-apps/index.html) via [js-dos](https://js-dos.com) — a DOSBox emulator compiled to WebAssembly.
 
 ![DOOM Databricks Edition](https://img.shields.io/badge/Databricks-App-FF3621?style=flat&logo=databricks&logoColor=white)
@@ -102,4 +100,4 @@ databricks-doom/
 
 ## Legal
 
-DOOM © 1993 id Software. This project uses the freely distributable shareware episode (Episode 1: Knee-Deep in the Dead). No commercial WAD files are included or distributed.
+DOOM © 1993 id Software. This project uses the freely distributable shareware. No commercial WAD files are included or distributed.
