@@ -103,5 +103,3 @@ databricks-doom/
 ## Legal
 
 DOOM © 1993 id Software. This project uses the freely distributable shareware episode (Episode 1: Knee-Deep in the Dead). No commercial WAD files are included or distributed.
-
-js-dos is © 2023 caiiiycuk, MIT licensed.
